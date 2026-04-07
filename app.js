@@ -470,24 +470,59 @@ function animateHeroTitle() {
 }
 
 // ============================================================
-// STEAM PARTICLES
+// STEAM PARTICLES (bubble-based)
 // ============================================================
-function spawnSteam(el) {
-  const rect = el.getBoundingClientRect();
-  for (let i = 0; i < 3; i++) {
-    const s = document.createElement('div');
-    s.className = 'steam-puff';
-    s.style.cssText = `left:${rect.left + rect.width * (0.3 + Math.random() * 0.4)}px;top:${rect.top + window.scrollY}px;animation-delay:${i * 0.25}s`;
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 1800);
+function spawnSteam(cardEl) {
+  const rect = cardEl.getBoundingClientRect();
+  const baseX = rect.left + rect.width * 0.5;
+  const baseY = rect.top;
+
+  function createBubble() {
+    const bubble = document.createElement('div');
+    bubble.classList.add('steam-bubble');
+
+    // random horizontal offset within card width
+    const offsetX = (Math.random() * rect.width * 0.6) - (rect.width * 0.3);
+    bubble.style.left = (baseX + offsetX) + 'px';
+    bubble.style.top = baseY + 'px';
+
+    // random size
+    const size = 16 + Math.random() * 14;
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+
+    // random duration
+    const duration = 1.8 + Math.random() * 1.6;
+    bubble.style.animationDuration = duration + 's';
+
+    document.body.appendChild(bubble);
+
+    // horizontal drift animation
+    const drift = (Math.random() * 60 - 30);
+    bubble.animate([
+      { transform: `translate(0, 0) scale(0.6)`, opacity: 0.6 },
+      { transform: `translate(${drift}px, -160px) scale(2.0)`, opacity: 0 }
+    ], {
+      duration: duration * 1000,
+      easing: 'ease-out',
+      fill: 'forwards'
+    });
+
+    setTimeout(() => bubble.remove(), duration * 1000 + 50);
+  }
+
+  // spawn 4-5 bubbles staggered
+  for (let i = 0; i < 5; i++) {
+    setTimeout(createBubble, i * 180);
   }
 }
+
 document.addEventListener('mouseover', e => {
   const card = e.target.closest('.m-img');
   if (card && !card._steaming) {
     card._steaming = true;
     spawnSteam(card);
-    setTimeout(() => { card._steaming = false; }, 2000);
+    setTimeout(() => { card._steaming = false; }, 2200);
   }
 });
 
