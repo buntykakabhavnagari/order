@@ -7,30 +7,29 @@
   box-sizing: border-box
 }
 
-
-
-
-
-
 :root {
-  --bg: #F9F8F5;
-  --bg2: #F2F1ED;
-  --bg3: #E8E6E0;
-  --text: #0D0D0D;
-  --text2: #5A5A5A;
-  --text3: #9A9A9A;
-  --border: #E0DED8;
+  --bg: #FFF7F2;
+  --bg2: #FFF1E6;
+  --bg3: #FFE4D6;
+  --text: #753232;
+  --text2: #5C5C5C;
+  --text3: #9E9E9E;
+  --border: #F1D5C9;
   --card: #FFFFFF;
-  --accent: #0D0D0D;
+  --accent: #FC8019;
+  /* Swiggy Orange */
   --accent-text: #FFFFFF;
-  --green: #16a34a;
-  --red: #dc2626;
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, .05);
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, .07);
-  --shadow-md: 0 8px 32px rgba(0, 0, 0, .10);
-  --shadow-lg: 0 20px 64px rgba(0, 0, 0, .13);
-  --shadow-xl: 0 32px 80px rgba(0, 0, 0, .16);
-  --glass: rgba(249, 248, 245, .88);
+  --green: #22C55E;
+  --red: #EF4444;
+
+  --shadow-xs: 0 1px 3px rgba(252, 128, 25, .08);
+  --shadow-sm: 0 2px 10px rgba(252, 128, 25, .12);
+  --shadow-md: 0 8px 32px rgba(252, 128, 25, .16);
+  --shadow-lg: 0 20px 64px rgba(252, 128, 25, .20);
+  --shadow-xl: 0 32px 80px rgba(252, 128, 25, .24);
+
+  --glass: rgba(255, 255, 255, .75);
+
   --r-sm: 10px;
   --r-md: 16px;
   --r-lg: 20px;
@@ -39,27 +38,30 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0A0A0A;
-  --bg2: #111111;
-  --bg3: #1A1A1A;
-  --text: #F0EFEC;
-  --text2: #888;
-  --text3: #444;
-  --border: #1E1E1E;
-  --card: #141414;
-  --accent: #F0EFEC;
-  --accent-text: #0A0A0A;
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, .25);
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, .4);
-  --shadow-md: 0 8px 32px rgba(0, 0, 0, .5);
-  --shadow-lg: 0 20px 64px rgba(0, 0, 0, .6);
-  --shadow-xl: 0 32px 80px rgba(0, 0, 0, .7);
-  --glass: rgba(10, 10, 10, .88);
+  --bg: #0F0F0F;
+  --bg2: #181818;
+  --bg3: #222222;
+  --text: #F5F5F5;
+  --text2: #A3A3A3;
+  --text3: #5A5A5A;
+  --border: #2A2A2A;
+  --card: #161616;
+
+  --accent: #ed2124;
+  /* Zomato Red */
+  --accent-text: #FFFFFF;
+
+  --green: #22C55E;
+  --red: #F87171;
+
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, .4);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, .5);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, .6);
+  --shadow-lg: 0 20px 64px rgba(0, 0, 0, .7);
+  --shadow-xl: 0 32px 80px rgba(0, 0, 0, .8);
+
+  --glass: rgba(20, 20, 20, .85);
 }
-
-
-
-
 
 html {
   scroll-behavior: smooth
@@ -393,48 +395,18 @@ canvas {
   }
 }
 
-/* ===== STEAM ANIMATION ===== */
-@keyframes steamRise {
+/* ===== STEAM ANIMATION (bubble-based) ===== */
+@keyframes steamRiseNew {
   0% {
-    opacity: 0;
-    transform: translateY(0) scaleX(1) rotate(-3deg);
+    transform: translateY(0) scale(0.6);
+    opacity: 0.6;
   }
-
-  25% {
-    opacity: .55;
-    transform: translateY(-14px) scaleX(1.15) rotate(4deg);
+  50% {
+    opacity: 0.28;
   }
-
-  60% {
-    opacity: .3;
-    transform: translateY(-30px) scaleX(.9) rotate(-2deg);
-  }
-
   100% {
+    transform: translateY(-160px) scale(2.0);
     opacity: 0;
-    transform: translateY(-50px) scaleX(.7) rotate(5deg);
-  }
-}
-
-@keyframes steamRise2 {
-  0% {
-    opacity: 0;
-    transform: translateY(0) scaleX(.9) rotate(5deg);
-  }
-
-  30% {
-    opacity: .45;
-    transform: translateY(-18px) scaleX(1.2) rotate(-5deg);
-  }
-
-  70% {
-    opacity: .25;
-    transform: translateY(-36px) scaleX(.8) rotate(3deg);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-54px) scaleX(.6) rotate(-4deg);
   }
 }
 
@@ -583,21 +555,22 @@ canvas {
   animation: letterPop .55s cubic-bezier(.22, 1, .36, 1) both;
 }
 
-/* ===== STEAM PUFF (DOM-injected) ===== */
-.steam-puff {
-  position: absolute;
-  width: 18px;
-  height: 28px;
+/* ===== STEAM PUFF (DOM-injected bubble style) ===== */
+.steam-bubble {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.82);
   border-radius: 50%;
-  background: transparent;
-  border: 2px solid var(--text3);
+  filter: blur(9px);
+  opacity: 0;
   pointer-events: none;
   z-index: 9990;
-  animation: steamRise 1.7s ease-out both;
+  animation: steamRiseNew linear forwards;
 }
 
-.steam-puff:nth-child(2n) {
-  animation-name: steamRise2;
+[data-theme="dark"] .steam-bubble {
+  background: rgba(255, 255, 255, 0.45);
 }
 
 
@@ -1157,86 +1130,104 @@ canvas {
   background: var(--border)
 }
 
-/* Floating food SVGs */
+/* ===== FULL-BODY FLOATING FOOD ITEMS ===== */
+.body-floaters {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bf {
+  position: absolute;
+  font-size: 2.4rem;
+  opacity: 0.07;
+  user-select: none;
+  filter: saturate(0.7);
+  transition: none !important;
+}
+
+[data-theme="dark"] .bf {
+  opacity: 0.055;
+  filter: saturate(0.5) brightness(0.8);
+}
+
+/* 16 body floaters — distributed evenly across full page avoiding center cluster */
+.bf-1  { top: 4%;   left: 3.5%; animation: floatA 7s ease-in-out 0s infinite; }
+.bf-2  { top: 4%;   left: 32%;  animation: floatB 8.5s ease-in-out 1.2s infinite; }
+.bf-3  { top: 4%;   right: 4%;  animation: floatC 7.5s ease-in-out 0.4s infinite; }
+.bf-4  { top: 22%;  left: 2%;   animation: floatD 9s ease-in-out 2.1s infinite; }
+.bf-5  { top: 22%;  right: 6%;  animation: floatE 6.5s ease-in-out 0.8s infinite; }
+.bf-6  { top: 40%;  left: 5%;   animation: floatA 8s ease-in-out 1.5s infinite; }
+.bf-7  { top: 40%;  right: 3%;  animation: floatB 7.2s ease-in-out 0.2s infinite; }
+.bf-8  { top: 57%;  left: 2%;   animation: floatC 9.5s ease-in-out 3s infinite; }
+.bf-9  { top: 57%;  right: 5%;  animation: floatD 7.8s ease-in-out 0.6s infinite; }
+.bf-10 { top: 73%;  left: 4%;   animation: floatE 8.2s ease-in-out 1.8s infinite; }
+.bf-11 { top: 73%;  right: 4%;  animation: floatA 6.8s ease-in-out 2.5s infinite; }
+.bf-12 { top: 88%;  left: 7%;   animation: floatB 9.2s ease-in-out 0.9s infinite; }
+.bf-13 { top: 88%;  right: 7%;  animation: floatC 7.4s ease-in-out 1.1s infinite; }
+.bf-14 { top: 12%;  left: 64%;  animation: floatD 8.8s ease-in-out 2.8s infinite; }
+.bf-15 { top: 33%;  left: 78%;  animation: floatE 7.6s ease-in-out 0.3s infinite; }
+.bf-16 { top: 65%;  left: 67%;  animation: floatA 8.4s ease-in-out 1.6s infinite; }
+
+/* Floating food SVGs (hero section only) */
 .floaters {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .floater {
   position: absolute;
-  opacity: .13
+  font-size: 2.8rem;
+  opacity: 0.15;
+  user-select: none;
+  filter: saturate(0.8);
+  transition: none !important;
 }
 
 [data-theme="dark"] .floater {
-  opacity: .08
-}
-
-.floater svg {
-  overflow: visible
+  opacity: 0.1;
+  filter: saturate(0.5);
 }
 
 .fl-1 {
-  top: 8%;
-  left: 5%;
-  animation: floatA 6s ease-in-out infinite
+  top: 9%;
+  left: 6%;
+  animation: floatA 6s ease-in-out infinite;
 }
 
 .fl-2 {
-  top: 12%;
-  right: 6%;
-  animation: floatB 7.5s ease-in-out infinite
+  top: 11%;
+  right: 7%;
+  animation: floatB 7.5s ease-in-out infinite;
 }
 
 .fl-3 {
-  bottom: 20%;
-  left: 3%;
-  animation: floatC 8s ease-in-out infinite
+  bottom: 22%;
+  left: 5%;
+  animation: floatC 8s ease-in-out 0.5s infinite;
 }
 
 .fl-4 {
-  bottom: 15%;
-  right: 4%;
-  animation: floatD 5.5s ease-in-out infinite
+  bottom: 18%;
+  right: 6%;
+  animation: floatD 5.5s ease-in-out infinite;
 }
 
 .fl-5 {
-  top: 50%;
-  left: 1%;
-  animation: floatE 9s ease-in-out infinite
+  top: 48%;
+  left: 3%;
+  animation: floatE 9s ease-in-out 1s infinite;
 }
 
 .fl-6 {
-  top: 50%;
-  right: 1%;
-  animation: floatA 6.5s ease-in-out 1s infinite
-}
-
-.fl-7 {
-  top: 28%;
-  left: 11%;
-  animation: floatB 7s ease-in-out .5s infinite
-}
-
-.fl-8 {
-  bottom: 38%;
-  right: 9%;
-  animation: floatC 8.5s ease-in-out 2s infinite
-}
-
-.fl-9 {
-  top: 35%;
-  left: 2%;
-  animation: floatSpin 11s ease-in-out 1.5s infinite
-}
-
-.fl-10 {
-  bottom: 10%;
-  right: 5%;
-  animation: floatBounce 7s ease-in-out 0.8s infinite
+  top: 52%;
+  right: 3%;
+  animation: floatA 6.5s ease-in-out 1.5s infinite;
 }
 
 /* ===== MARQUEE ===== */
@@ -2438,6 +2429,7 @@ canvas {
 }
 
 .c-sug-add {
+  color: floralwhite;
   padding: 6px 16px;
   border-radius: var(--r-full);
   border: 1.5px solid var(--accent);
